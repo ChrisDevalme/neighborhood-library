@@ -23,10 +23,11 @@ public class NeighborhoodLibrary {
         Scanner userInput = new Scanner(System.in);
 
         while (!quit) {
-            System.out.println("Select an option: ");
             System.out.println("1: Show all Books");
-            System.out.println("2: Show Checked Out Books: ");
-            System.out.println("3: Quit: ");
+            System.out.println("2: Show Checked Out Books");
+            System.out.println("3: Quit");
+            System.out.print("Select an option: ");
+
 
             int userSelection = userInput.nextInt();
             userInput.nextLine();
@@ -51,6 +52,7 @@ public class NeighborhoodLibrary {
     public static void ListAllAvailableBooks(Scanner userInput) {
 
         System.out.println("Current Books in Stock: ");
+        boolean isFound = false;
 
         for (int i = 0; i < numOfBooks; i++) {
             if (!books[i].isCheckedOut()) {
@@ -69,13 +71,18 @@ public class NeighborhoodLibrary {
                 String name = userInput.nextLine();
                 System.out.println("Thank you, " + name + "! You checked out " + books[i].getTitle() + ".");
                 books[i].checkOut(name);
+                isFound = true;
             }
+        }
+
+        if (!isFound) {
+            System.out.println("Entry unavailable try again. ");
         }
     }
     public static void ListCheckedOutBooks(Scanner userInput) {
 
-        System.out.println("Current Books checked out: ");
         boolean found = false;
+        Book selectedBook = new Book();
 
         for (int i = 0; i < numOfBooks; i++) {
             if (books[i].isCheckedOut()) {
@@ -84,20 +91,30 @@ public class NeighborhoodLibrary {
             }
         }
 
-        System.out.println("Enter (C) to Check In a Book, or (X) to return to home sreenn");
+        if (found) {
+            System.out.println("Enter (C) to Check In a Book, or (X) to return to home sreenn");
 
-        String userSelection = userInput.nextLine();
-        if (userSelection.equalsIgnoreCase("c")) {
-            System.out.print("Enter ID of book you are returning: ");
-            int bookID = userInput.nextInt();
-            userInput.nextLine();
-            System.out.println("Thank you for returning " + books[bookID].getTitle());
-            books[bookID].checkIn();
-        } else if (userSelection.equalsIgnoreCase("x")) {
-            System.out.println("Returning to main menu.");
+            String userSelection = userInput.nextLine();
+            if (userSelection.equalsIgnoreCase("c")) {
+                System.out.print("Enter ID of book you are returning: ");
+                int bookID = userInput.nextInt();
+                userInput.nextLine();
+                selectedBook = books[bookID];
+            } else if (userSelection.equalsIgnoreCase("x")) {
+                System.out.println("Returning to main menu.");
+            } else {
+                System.out.println("Invalid selection.");
+            }
+
+            if (selectedBook.isCheckedOut()) {
+                System.out.println("Thank you " + selectedBook.getCheckedOutTo() +  " for returning " + selectedBook.getTitle());
+                selectedBook.checkIn();
+            } else {
+                System.out.println("This book isn't checked out. Select another book.");
+            }
+
         } else {
-            System.out.println("Invalid selection.");
+            System.out.println("No current books checked out.");
         }
     }
-
 }

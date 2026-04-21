@@ -15,6 +15,10 @@ public class Book {
         this.checkedOutTo = checkedOutTo;
     }
 
+    public Book() {
+
+    }
+
     public int getId() {
         return id;
     }
@@ -67,12 +71,12 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", isbn='" + isbn + '\'' +
-                ", title='" + title + '\'' +
-                ", isCheckedOut=" + isCheckedOut +
-                ", checkedOutTo='" + checkedOutTo + '\'' +
-                '}';
+        return "Book [ " +
+                "ID = " + id +
+                " | isbn = " + isbn +
+                " | Title = \"" + title +
+                "\" | isCheckedOut= " + isCheckedOut +
+                " | checkedOutTo = " + checkedOutTo +
+                ']';
     }
 }
