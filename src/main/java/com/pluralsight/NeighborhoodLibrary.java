@@ -92,7 +92,7 @@ public class NeighborhoodLibrary {
         }
 
         if (found) {
-            System.out.println("Enter (C) to Check In a Book, or (X) to return to home sreenn");
+            System.out.println("Enter (C) to Check In a Book, or (X) to return to home screen");
 
             String userSelection = userInput.nextLine();
             if (userSelection.equalsIgnoreCase("c")) {
@@ -104,6 +104,7 @@ public class NeighborhoodLibrary {
                 System.out.println("Returning to main menu.");
             } else {
                 System.out.println("Invalid selection.");
+                return;
             }
 
             if (selectedBook.isCheckedOut()) {
